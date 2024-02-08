@@ -2,7 +2,7 @@
 vehicle
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from .vehicle import views
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -91,4 +91,5 @@ urlpatterns = [
 
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
+    path('schema/', include('schema_viewer.urls')),
 ]
