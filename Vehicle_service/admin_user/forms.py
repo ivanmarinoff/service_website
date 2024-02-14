@@ -85,24 +85,24 @@ class CustomerForm(forms.ModelForm):
         model = models.Customer
         fields = ['address', 'mobile', 'profile_pic']
 
-class MechanicUserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username', 'password']
-        widgets = {
-            'password': forms.PasswordInput()
-        }
+# class MechanicUserForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['first_name', 'last_name', 'username', 'password']
+#         widgets = {
+#             'password': forms.PasswordInput()
+#         }
 
 
-class MechanicForm(forms.ModelForm):
-    class Meta:
-        model = models.Mechanic
-        fields = ['address', 'mobile', 'profile_pic', 'skill']
-
-
-class MechanicSalaryForm(forms.Form):
-    salary = forms.IntegerField()
-
-    class Meta:
-        model = models.Mechanic
-        fields = ['address', 'mobile', 'profile_pic', 'skill']
+# class MechanicForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Mechanic
+#         fields = ['address', 'mobile', 'profile_pic', 'skill']
+#
+#
+# class MechanicSalaryForm(forms.Form):
+#     salary = forms.IntegerField()
+#
+#     class Meta:
+#         model = models.Mechanic
+#         fields = ['address', 'mobile', 'profile_pic', 'skill']

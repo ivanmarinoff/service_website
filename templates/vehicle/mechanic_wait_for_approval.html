@@ -25,9 +25,11 @@
         <p class="lead">Your Account is not approved till now <br><br>Our Team is checking your profile <br><br> Soon you will be hired to our Agency</p>
         <hr class="my-4">
         <p>Check Later</p>
+          <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/logout" role="button">Logout For Now</a>
-        </p>
+          <button class="btn btn-primary btn-lg" type="submit">Logout For Now</button>
+          </p></form>
       </div>
 
 {% include "vehicle/footer.html" %}

@@ -9,61 +9,64 @@ from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import render
 
+
 # Create your views here.
 
 def mechanic_signup_view(request):
-    userForm=forms.MechanicUserForm()
-    mechanicForm=forms.MechanicForm()
-    mydict={'userForm':userForm,'mechanicForm':mechanicForm}
-    if request.method=='POST':
-        userForm=forms.MechanicUserForm(request.POST)
-        mechanicForm=forms.MechanicForm(request.POST,request.FILES)
+    userForm = forms.MechanicUserForm()
+    mechanicForm = forms.MechanicForm()
+    mydict = {'userForm': userForm, 'mechanicForm': mechanicForm}
+    if request.method == 'POST':
+        userForm = forms.MechanicUserForm(request.POST)
+        mechanicForm = forms.MechanicForm(request.POST, request.FILES)
         if userForm.is_valid() and mechanicForm.is_valid():
-            user=userForm.save()
+            user = userForm.save()
             user.set_password(user.password)
             user.save()
-            mechanic=mechanicForm.save(commit=False)
-            mechanic.user=user
+            mechanic = mechanicForm.save(commit=False)
+            mechanic.user = user
             mechanic.save()
             my_mechanic_group = Group.objects.get_or_create(name='MECHANIC')
             my_mechanic_group[0].user_set.add(user)
         return HttpResponseRedirect('mechaniclogin')
-    return render(request,'vehicle/mechanicsignup.html',context=mydict)
+    return render(request, 'vehicle/mechanicsignup.html', context=mydict)
 
 
 def is_mechanic(user):
     return user.groups.filter(name='MECHANIC').exists()
 
+
 @login_required(login_url='adminlogin')
 def admin_mechanic_view(request):
-    return render(request,'vehicle/admin_mechanic.html')
+    return render(request, 'vehicle/admin_mechanic.html')
 
 
 @login_required(login_url='adminlogin')
 def admin_approve_mechanic_view(request):
-    mechanics=models.Mechanic.objects.all().filter(status=False)
-    return render(request,'vehicle/admin_approve_mechanic.html',{'mechanics':mechanics})
+    mechanics = models.Mechanic.objects.all().filter(status=False)
+    return render(request, 'vehicle/admin_approve_mechanic.html', {'mechanics': mechanics})
+
 
 @login_required(login_url='adminlogin')
-def approve_mechanic_view(request,pk):
-    mechanicSalary=forms.MechanicSalaryForm()
-    if request.method=='POST':
-        mechanicSalary=forms.MechanicSalaryForm(request.POST)
+def approve_mechanic_view(request, pk):
+    mechanicSalary = forms.MechanicSalaryForm()
+    if request.method == 'POST':
+        mechanicSalary = forms.MechanicSalaryForm(request.POST)
         if mechanicSalary.is_valid():
-            mechanic=models.Mechanic.objects.get(id=pk)
-            mechanic.salary=mechanicSalary.cleaned_data['salary']
-            mechanic.status=True
+            mechanic = models.Mechanic.objects.get(id=pk)
+            mechanic.salary = mechanicSalary.cleaned_data['salary']
+            mechanic.status = True
             mechanic.save()
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-approve-mechanic')
-    return render(request,'vehicle/admin_approve_mechanic_details.html',{'mechanicSalary':mechanicSalary})
+    return render(request, 'vehicle/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
 
 
 @login_required(login_url='adminlogin')
-def delete_mechanic_view(request,pk):
-    mechanic=models.Mechanic.objects.get(id=pk)
-    user=models.User.objects.get(id=mechanic.user_id)
+def delete_mechanic_view(request, pk):
+    mechanic = models.Mechanic.objects.get(id=pk)
+    user = models.User.objects.get(id=mechanic.user_id)
     user.delete()
     mechanic.delete()
     return redirect('admin-approve-mechanic')
@@ -71,94 +74,98 @@ def delete_mechanic_view(request,pk):
 
 @login_required(login_url='adminlogin')
 def admin_add_mechanic_view(request):
-    userForm=forms.MechanicUserForm()
-    mechanicForm=forms.MechanicForm()
-    mechanicSalary=forms.MechanicSalaryForm()
-    mydict={'userForm':userForm,'mechanicForm':mechanicForm,'mechanicSalary':mechanicSalary}
-    if request.method=='POST':
-        userForm=forms.MechanicUserForm(request.POST)
-        mechanicForm=forms.MechanicForm(request.POST,request.FILES)
-        mechanicSalary=forms.MechanicSalaryForm(request.POST)
+    userForm = forms.MechanicUserForm()
+    mechanicForm = forms.MechanicForm()
+    mechanicSalary = forms.MechanicSalaryForm()
+    mydict = {'userForm': userForm, 'mechanicForm': mechanicForm, 'mechanicSalary': mechanicSalary}
+    if request.method == 'POST':
+        userForm = forms.MechanicUserForm(request.POST)
+        mechanicForm = forms.MechanicForm(request.POST, request.FILES)
+        mechanicSalary = forms.MechanicSalaryForm(request.POST)
         if userForm.is_valid() and mechanicForm.is_valid() and mechanicSalary.is_valid():
-            user=userForm.save()
+            user = userForm.save()
             user.set_password(user.password)
             user.save()
-            mechanic=mechanicForm.save(commit=False)
-            mechanic.user=user
-            mechanic.status=True
-            mechanic.salary=mechanicSalary.cleaned_data['salary']
+            mechanic = mechanicForm.save(commit=False)
+            mechanic.user = user
+            mechanic.status = True
+            mechanic.salary = mechanicSalary.cleaned_data['salary']
             mechanic.save()
             my_mechanic_group = Group.objects.get_or_create(name='MECHANIC')
             my_mechanic_group[0].user_set.add(user)
             return HttpResponseRedirect('admin-view-mechanic')
         else:
             print('problem in form')
-    return render(request,'vehicle/admin_add_mechanic.html',context=mydict)
+    return render(request, 'vehicle/admin_add_mechanic.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
 def admin_view_mechanic_view(request):
-    mechanics=models.Mechanic.objects.all()
-    return render(request,'vehicle/admin_view_mechanic.html',{'mechanics':mechanics})
+    mechanics = models.MechanicModel.objects.all()
+    return render(request, 'vehicle/admin_view_mechanic.html', {'mechanics': mechanics})
 
 
 @login_required(login_url='adminlogin')
-def delete_mechanic_view(request,pk):
-    mechanic=models.Mechanic.objects.get(id=pk)
-    user=models.User.objects.get(id=mechanic.user_id)
+def delete_mechanic_view(request, pk):
+    mechanic = models.MechanicModel.objects.get(id=pk)
+    user = models.User.objects.get(id=mechanic.user_id)
     user.delete()
     mechanic.delete()
     return redirect('admin-view-mechanic')
 
 
 @login_required(login_url='adminlogin')
-def update_mechanic_view(request,pk):
-    mechanic=models.Mechanic.objects.get(id=pk)
-    user=models.User.objects.get(id=mechanic.user_id)
-    userForm=forms.MechanicUserForm(instance=user)
-    mechanicForm=forms.MechanicForm(request.FILES,instance=mechanic)
-    mydict={'userForm':userForm,'mechanicForm':mechanicForm}
-    if request.method=='POST':
-        userForm=forms.MechanicUserForm(request.POST,instance=user)
-        mechanicForm=forms.MechanicForm(request.POST,request.FILES,instance=mechanic)
+def update_mechanic_view(request, pk):
+    mechanic = models.MechanicModel.objects.get(id=pk)
+    user = models.User.objects.get(id=mechanic.user_id)
+    userForm = forms.MechanicUserForm(instance=user)
+    mechanicForm = forms.MechanicForm(request.FILES, instance=mechanic)
+    mydict = {'userForm': userForm, 'mechanicForm': mechanicForm}
+    if request.method == 'POST':
+        userForm = forms.MechanicUserForm(request.POST, instance=user)
+        mechanicForm = forms.MechanicForm(request.POST, request.FILES, instance=mechanic)
         if userForm.is_valid() and mechanicForm.is_valid():
-            user=userForm.save()
+            user = userForm.save()
             user.set_password(user.password)
             user.save()
             mechanicForm.save()
             return redirect('admin-view-mechanic')
-    return render(request,'vehicle/update_mechanic.html',context=mydict)
+    return render(request, 'vehicle/update_mechanic.html', context=mydict)
+
 
 @login_required(login_url='adminlogin')
 def admin_view_mechanic_salary_view(request):
-    mechanics=models.Mechanic.objects.all()
-    return render(request,'vehicle/admin_view_mechanic_salary.html',{'mechanics':mechanics})
+    mechanics = models.MechanicModel.objects.all()
+    return render(request, 'vehicle/admin_view_mechanic_salary.html', {'mechanics': mechanics})
+
 
 @login_required(login_url='adminlogin')
-def update_salary_view(request,pk):
-    mechanicSalary=forms.MechanicSalaryForm()
-    if request.method=='POST':
-        mechanicSalary=forms.MechanicSalaryForm(request.POST)
+def update_salary_view(request, pk):
+    mechanicSalary = forms.MechanicSalaryForm()
+    if request.method == 'POST':
+        mechanicSalary = forms.MechanicSalaryForm(request.POST)
         if mechanicSalary.is_valid():
-            mechanic=models.Mechanic.objects.get(id=pk)
-            mechanic.salary=mechanicSalary.cleaned_data['salary']
+            mechanic = models.MechanicModel.objects.get(id=pk)
+            mechanic.salary = mechanicSalary.cleaned_data['salary']
             mechanic.save()
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-view-mechanic-salary')
-    return render(request,'vehicle/admin_approve_mechanic_details.html',{'mechanicSalary':mechanicSalary})
+    return render(request, 'vehicle/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
+
 
 @login_required(login_url='adminlogin')
 def admin_mechanic_attendance_view(request):
     return render(request, 'vehicle/admin_mechanic_attendance.html')
 
+
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_dashboard_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    work_in_progress = models.Request.objects.all().filter(mechanic_id=mechanic.id, status='Repairing').count()
-    work_completed = models.Request.objects.all().filter(mechanic_id=mechanic.id, status='Repairing Done').count()
-    new_work_assigned = models.Request.objects.all().filter(mechanic_id=mechanic.id, status='Approved').count()
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
+    work_in_progress = models.RequestModel.objects.all().filter(mechanic_id=mechanic.id, status='Repairing').count()
+    work_completed = models.RequestModel.objects.all().filter(mechanic_id=mechanic.id, status='Repairing Done').count()
+    new_work_assigned = models.RequestModel.objects.all().filter(mechanic_id=mechanic.id, status='Approved').count()
     dict = {
         'work_in_progress': work_in_progress,
         'work_completed': work_completed,
@@ -172,20 +179,20 @@ def mechanic_dashboard_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_work_assigned_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    works = models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
+    works = models.RequestModel.objects.all().filter(mechanic_id=mechanic.id)
     return render(request, 'vehicle/mechanic_work_assigned.html', {'works': works, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_update_status_view(request, pk):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
     updateStatus = forms.MechanicUpdateStatusForm()
     if request.method == 'POST':
         updateStatus = forms.MechanicUpdateStatusForm(request.POST)
         if updateStatus.is_valid():
-            enquiry_x = models.Request.objects.get(id=pk)
+            enquiry_x = models.RequestModel.objects.get(id=pk)
             enquiry_x.status = updateStatus.cleaned_data['status']
             enquiry_x.save()
         else:
@@ -197,15 +204,15 @@ def mechanic_update_status_view(request, pk):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_attendance_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    attendaces = models.Attendance.objects.all().filter(mechanic=mechanic)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
+    attendaces = models.AttendanceModel.objects.all().filter(mechanic=mechanic)
     return render(request, 'vehicle/mechanic_view_attendance.html', {'attendaces': attendaces, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_feedback_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
     feedback = forms.FeedbackForm()
     if request.method == 'POST':
         feedback = forms.FeedbackForm(request.POST)
@@ -220,8 +227,8 @@ def mechanic_feedback_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_salary_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    workdone = models.Request.objects.all().filter(mechanic_id=mechanic.id).filter(
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
+    workdone = models.RequestModel.objects.all().filter(mechanic_id=mechanic.id).filter(
         Q(status="Repairing Done") | Q(status="Released"))
     return render(request, 'vehicle/mechanic_salary.html', {'workdone': workdone, 'mechanic': mechanic})
 
@@ -229,14 +236,14 @@ def mechanic_salary_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_profile_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
     return render(request, 'vehicle/mechanic_profile.html', {'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def edit_mechanic_profile_view(request):
-    mechanic = models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic = models.MechanicModel.objects.get(user_id=request.user.id)
     user = models.User.objects.get(id=mechanic.user_id)
     userForm = forms.MechanicUserForm(instance=user)
     mechanicForm = forms.MechanicForm(request.FILES, instance=mechanic)
@@ -251,4 +258,3 @@ def edit_mechanic_profile_view(request):
             mechanicForm.save()
             return redirect('mechanic-profile')
     return render(request, 'vehicle/edit_mechanic_profile.html', context=mydict)
-
