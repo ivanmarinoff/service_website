@@ -55,11 +55,11 @@
                             <form method="post" action="{% url 'logout' %}" class="dropdown-menu-link">
 {#							<a href="{% url 'logout' %}" class="dropdown-menu-link" type="submit">#}
                                  {% csrf_token %}
-                                <button type="submit" class="dropdown-menu-link">
+                                <button autofocus type="submit" class="dropdown-menu-link" style="border:none; background-color: transparent">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
-								Logout
+								<span>Logout</span>
                                 </button>
 {#							</a>#}
                                 </form>
