@@ -91,7 +91,8 @@ DATABASES = {
 SCHEMA_VIEWER = {
     'apps': [
         'Vehicle_service.admin_user',
-        'django.contrib.auth',
+        'Vehicle_service.customer',
+        'Vehicle_service.mechanic',
     ],
 }
 
@@ -137,7 +138,6 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/afterlogin'
 LOGOUT_REDIRECT_URL = '/logout'
-
 
 # for contact us give your gmail id and password
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
