@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{#  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
   <style>
     .card {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -12,17 +12,7 @@
       text-align: center;
       font-family: arial;
     }
-    .jumbotron {
-      margin-top: 200px;
-      margin-bottom: 200px;
-      background-image: url('{% static "images/car_pic.jpg" %}');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
 
-    .jumbotron h1 {
-      text-align: center;
-    }
 
     .title {
       color: grey;
@@ -49,9 +39,9 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: min-content;
       padding: 60px;
-      margin-left:150px;
+      margin-left:0px;
     }
 
     a:link {
@@ -79,7 +69,7 @@
       </div>
 
     </div>
-
+      <br>
     <div class="grid-item">
       <div class="card">
         <img src="{% static "images/mechanic.png" %}" alt="John" style="width:100%">
