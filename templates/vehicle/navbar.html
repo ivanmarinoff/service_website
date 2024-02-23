@@ -3,62 +3,122 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {#  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    {#  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+    {#  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>#}
+    {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
 
-  <style type="text/css">
-    .bs-example {
-      margin: 0px;
 
-    }
-    .bg-dark {
-    background-color: #4f55c7!important;
-}
-    .navbar-brand {
-      font-size: 20px;
-      font-family: sans-serif;
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&display=swap" rel="stylesheet">
+    {#  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <style>
+        :root {
+            --clr-neon: hsl(317 100% 54%);
+            --clr-bg: hsl(323 21% 16%);
+        }
 
-    }
-  </style>
+        {#.body {#}
+        {#    margin: auto;#}
+        {#    text-align: center;#}
+        {#    color: var(--clr-neon);#}
+        {#    border: var(--clr-neon) 0.125em solid;#}
+        {#    border-radius: 0.25em;#}
+        {#    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;#}
+        {##}
+        {#    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);#}
+        {# }#}
+
+
+        .title {
+            color: #000;
+            font-size: 35px;
+            font-family: "Balsamiq Sans", cursive;
+            text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+            padding: 4%;
+        }
+
+        button {
+        outline: 0;
+            display: inline-block;
+            padding: 8px;
+        color: var(--clr-neon);
+         background: var(--clr-bg);
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            border-radius: 0.25em;
+            text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+
+            box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+            position: relative;
+        }
+
+        button:hover,
+        a:hover {
+        color: var(--clr-bg);
+            text-shadow: none;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a {
+         color: var(--clr-neon);
+        }
+
+        .bs-example {
+            margin: 0px;
+
+        }
+
+        .bg-color {
+        background-color: var(--clr-neon);
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-family: "Balsamiq Sans", cursive;
+            text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+
+        }
+    </style>
 </head>
 
 <body>
 
 
+<div class="navbar-brand">
+    <nav class="navbar navbar-expand-md navbar-danger bg-color bs-example fixed-top">
+        <a href="/" class="title">Vehicle Service Management</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="bs-example">
-    <nav class="navbar navbar-expand-md bg-danger navbar-danger fixed-top">
-      <a href="/" class="navbar-brand" style="color:yellow;">Vehicle Service Management</a>
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-brand">
+                <a href="/" class="title">Home</a>
 
-      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-        <div class="navbar-nav">
-          <a href="/" class="nav-item nav-link active">Home</a>
+                <a href="/customerclick" class="title">Customer</a>
+                <a href="/mechanicsclick" class="title">Mechanics</a>
+                <a href="/adminclick" class="title">Admin</a>
 
-          <a href="/customerclick" class="nav-item nav-link">Customer</a>
-          <a href="/mechanicsclick" class="nav-item nav-link">Mechanics</a>
-          <a href="/adminclick" class="nav-item nav-link">Admin</a>
+
+            </div>
+
+            <div class="navbar-nav">
+                <a href="/aboutus" class="title">About Us</a>
+                <a href="contactus" class="title">Contact Us</a>
+            </div>
 
 
         </div>
-
-        <div class="navbar-nav">
-          <a href="/aboutus" class="nav-item nav-link">About Us</a>
-          <a href="contactus" class="nav-item nav-link">Contact Us</a>
-        </div>
-
-
-
-
-      </div>
     </nav>
-  </div>
+</div>
 
 
 </body>
