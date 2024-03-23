@@ -15,6 +15,12 @@ class MechanicUserForm(forms.ModelForm):
             'password': forms.PasswordInput()
         }
 
+
+class MechanicUpdateStatusForm(forms.Form):
+    stat = (('Approved', 'Approved'), ('Repairing', 'Repairing'), ('Repairing Done', 'Repairing Done'))
+    status = forms.ChoiceField(choices=stat)
+
+
 class MechanicForm(forms.ModelForm):
     class Meta:
         model = models.Mechanic
@@ -28,6 +34,7 @@ class MechanicSalaryForm(forms.Form):
         model = models.Mechanic
         fields = ['address', 'mobile', 'profile_pic', 'skill']
 
+
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = models.Feedback
@@ -35,4 +42,3 @@ class FeedbackForm(forms.ModelForm):
         widgets = {
             'message': forms.Textarea(attrs={'rows': 3, 'cols': 30})
         }
-
