@@ -1,4 +1,4 @@
-{% extends 'vehicle/mechanicbase.html' %}
+{% extends 'vehicle/../admin/adminbase.html' %}
 {% load widget_tweaks %}
 {% block content %}
 <head>
@@ -35,7 +35,7 @@
 </head>
 
 <br><br><br><br><br>
-<h1 style="text-align:center;color:blue;">Edit Your Profile</h1>
+<h3 style="text-align:center;">UPDATE Mechanic</h3>
 <div>
   <form method="post"  enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
       {% csrf_token %}
@@ -56,7 +56,7 @@
         <label for="profile_pic">Profile Picture</label>
           {% render_field mechanicForm.profile_pic class="form-control" placeholder="Profile Picture" %}
 <br><br>
-    <input type="submit" value="Edit Your Profile">
+    <input type="submit" value="Update">
   </form>
 </div>
 

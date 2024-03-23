@@ -7,9 +7,9 @@ urlpatterns = [
 
     path('mechanicsclick', views.mechanicsclick_view),
 
-    path('customerlogin', LoginView.as_view(template_name='vehicle/customerlogin.html'), name='customerlogin'),
-    path('mechaniclogin', LoginView.as_view(template_name='vehicle/mechaniclogin.html'), name='mechaniclogin'),
-    path('adminlogin', LoginView.as_view(template_name='vehicle/adminlogin.html'), name='adminlogin'),
+    path('customerlogin', LoginView.as_view(template_name='vehicle/../../templates/customer/customerlogin.html'), name='customerlogin'),
+    path('mechaniclogin', LoginView.as_view(template_name='vehicle/../../templates/mechanic/mechaniclogin.html'), name='mechaniclogin'),
+    path('adminlogin', LoginView.as_view(template_name='vehicle/../../templates/admin/adminlogin.html'), name='adminlogin'),
 
     path('admin-dashboard', views.admin_dashboard_view, name='admin-dashboard'),
 

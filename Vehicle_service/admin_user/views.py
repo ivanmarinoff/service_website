@@ -30,7 +30,7 @@ def home_view(request):
 def mechanicsclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request, 'vehicle/mechanicsclick.html')
+    return render(request, 'vehicle/../../templates/mechanic/mechanicsclick.html')
 
 
 # for showing signup/login button for ADMIN(by sumit)
@@ -57,7 +57,7 @@ def afterlogin_view(request):
         if accountapproval:
             return redirect('mechanic-dashboard')
         else:
-            return render(request, 'vehicle/mechanic_wait_for_approval.html')
+            return render(request, 'vehicle/../../templates/mechanic/mechanic_wait_for_approval.html')
     else:
         return redirect('admin-dashboard')
 
@@ -80,18 +80,18 @@ def admin_dashboard_view(request):
         'total_feedback': models.Feedback.objects.all().count(),
         'data': zip(customers, enquiry),
     }
-    return render(request, 'vehicle/admin_dashboard.html', context=dict)
+    return render(request, 'vehicle/../../templates/admin/admin_dashboard.html', context=dict)
 
 
 @login_required(login_url='adminlogin')
 def admin_customer_view(request):
-    return render(request, 'vehicle/admin_customer.html')
+    return render(request, 'vehicle/../../templates/admin/admin_customer.html')
 
 
 @login_required(login_url='adminlogin')
 def admin_view_customer_view(request):
     customers = models.Customer.objects.all()
-    return render(request, 'vehicle/admin_view_customer.html', {'customers': customers})
+    return render(request, 'vehicle/../../templates/admin/admin_view_customer.html', {'customers': customers})
 
 
 @login_required(login_url='adminlogin')
@@ -119,7 +119,7 @@ def update_customer_view(request, pk):
             user.save()
             customerForm.save()
             return redirect('admin-view-customer')
-    return render(request, 'vehicle/update_customer.html', context=mydict)
+    return render(request, 'vehicle/../../templates/admin/update_customer.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
@@ -140,7 +140,7 @@ def admin_add_customer_view(request):
             my_customer_group = Group.objects.get_or_create(name='CUSTOMER')
             my_customer_group[0].user_set.add(user)
         return HttpResponseRedirect('/admin-view-customer')
-    return render(request, 'vehicle/admin_add_customer.html', context=mydict)
+    return render(request, 'vehicle/../../templates/admin/admin_add_customer.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
@@ -150,7 +150,7 @@ def admin_view_customer_enquiry_view(request):
     for enq in enquiry:
         customer = models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
-    return render(request, 'vehicle/admin_view_customer_enquiry.html', {'data': zip(customers, enquiry)})
+    return render(request, 'vehicle/../../templates/admin/admin_view_customer_enquiry.html', {'data': zip(customers, enquiry)})
 
 
 @login_required(login_url='adminlogin')
@@ -162,12 +162,12 @@ def admin_view_customer_invoice_view(request):
         print(enq)
         customer = models.Customer.objects.get(id=enq['customer_id'])
         customers.append(customer)
-    return render(request, 'vehicle/admin_view_customer_invoice.html', {'data': zip(customers, enquiry)})
+    return render(request, 'vehicle/../../templates/admin/admin_view_customer_invoice.html', {'data': zip(customers, enquiry)})
 
 
 @login_required(login_url='adminlogin')
 def admin_request_view(request):
-    return render(request, 'vehicle/admin_request.html')
+    return render(request, 'vehicle/../../templates/admin/admin_request.html')
 
 
 @login_required(login_url='adminlogin')
@@ -177,7 +177,7 @@ def admin_view_request_view(request):
     for enq in enquiry:
         customer = models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
-    return render(request, 'vehicle/admin_view_request.html', {'data': zip(customers, enquiry)})
+    return render(request, 'vehicle/../../templates/admin/admin_view_request.html', {'data': zip(customers, enquiry)})
 
 
 @login_required(login_url='adminlogin')
@@ -194,7 +194,7 @@ def change_status_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-view-request')
-    return render(request, 'vehicle/admin_approve_request_details.html', {'adminenquiry': adminenquiry})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_request_details.html', {'adminenquiry': adminenquiry})
 
 
 @login_required(login_url='adminlogin')
@@ -222,13 +222,13 @@ def admin_add_request_view(request):
         else:
             print("form is invalid")
         return HttpResponseRedirect('admin-view-request')
-    return render(request, 'vehicle/admin_add_request.html', context=mydict)
+    return render(request, 'vehicle/../../templates/admin/admin_add_request.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
 def admin_approve_request_view(request):
     enquiry = models.Request.objects.all().filter(status='Pending')
-    return render(request, 'vehicle/admin_approve_request.html', {'enquiry': enquiry})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_request.html', {'enquiry': enquiry})
 
 
 @login_required(login_url='adminlogin')
@@ -245,7 +245,7 @@ def approve_request_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-approve-request')
-    return render(request, 'vehicle/admin_approve_request_details.html', {'adminenquiry': adminenquiry})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_request_details.html', {'adminenquiry': adminenquiry})
 
 
 @login_required(login_url='adminlogin')
@@ -256,7 +256,7 @@ def admin_view_service_cost_view(request):
         customer = models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
     print(customers)
-    return render(request, 'vehicle/admin_view_service_cost.html', {'data': zip(customers, enquiry)})
+    return render(request, 'vehicle/../../templates/admin/admin_view_service_cost.html', {'data': zip(customers, enquiry)})
 
 
 @login_required(login_url='adminlogin')
@@ -271,7 +271,7 @@ def update_cost_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-view-service-cost')
-    return render(request, 'vehicle/update_cost.html', {'updateCostForm': updateCostForm})
+    return render(request, 'vehicle/../../templates/admin/update_cost.html', {'updateCostForm': updateCostForm})
 
 
 @login_required(login_url='adminlogin')
@@ -296,7 +296,7 @@ def admin_take_attendance_view(request):
             return redirect('admin-view-attendance')
         else:
             print('form invalid')
-    return render(request, 'vehicle/admin_take_attendance.html', {'mechanics': mechanics, 'aform': aform})
+    return render(request, 'vehicle/../../templates/admin/admin_take_attendance.html', {'mechanics': mechanics, 'aform': aform})
 
 
 @login_required(login_url='adminlogin')
@@ -309,10 +309,10 @@ def admin_view_attendance_view(request):
             attendancedata = models.Attendance.objects.all().filter(date=date)
             mechanicdata = models.Mechanic.objects.all().filter(status=True)
             mylist = zip(attendancedata, mechanicdata)
-            return render(request, 'vehicle/admin_view_attendance_page.html', {'mylist': mylist, 'date': date})
+            return render(request, 'vehicle/../../templates/admin/admin_view_attendance_page.html', {'mylist': mylist, 'date': date})
         else:
             print('form invalid')
-    return render(request, 'vehicle/admin_view_attendance_ask_date.html', {'form': form})
+    return render(request, 'vehicle/../../templates/admin/admin_view_attendance_ask_date.html', {'form': form})
 
 
 @login_required(login_url='adminlogin')
@@ -321,13 +321,13 @@ def admin_report_view(request):
     dict = {
         'reports': reports,
     }
-    return render(request, 'vehicle/admin_report.html', context=dict)
+    return render(request, 'vehicle/../../templates/admin/admin_report.html', context=dict)
 
 
 @login_required(login_url='adminlogin')
 def admin_feedback_view(request):
     feedback = models.Feedback.objects.all().order_by('-id')
-    return render(request, 'vehicle/admin_feedback.html', {'feedback': feedback})
+    return render(request, 'vehicle/../../templates/admin/admin_feedback.html', {'feedback': feedback})
 
 
 # for aboutus and contact

@@ -29,7 +29,7 @@ def mechanic_signup_view(request):
             my_mechanic_group = Group.objects.get_or_create(name='MECHANIC')
             my_mechanic_group[0].user_set.add(user)
         return HttpResponseRedirect('mechaniclogin')
-    return render(request, 'vehicle/mechanicsignup.html', context=mydict)
+    return render(request, 'vehicle/../../templates/mechanic/mechanicsignup.html', context=mydict)
 
 
 def is_mechanic(user):
@@ -38,13 +38,13 @@ def is_mechanic(user):
 
 @login_required(login_url='adminlogin')
 def admin_mechanic_view(request):
-    return render(request, 'vehicle/admin_mechanic.html')
+    return render(request, 'vehicle/../../templates/admin/admin_mechanic.html')
 
 
 @login_required(login_url='adminlogin')
 def admin_approve_mechanic_view(request):
     mechanics = models.Mechanic.objects.all().filter(status=False)
-    return render(request, 'vehicle/admin_approve_mechanic.html', {'mechanics': mechanics})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_mechanic.html', {'mechanics': mechanics})
 
 
 @login_required(login_url='adminlogin')
@@ -60,7 +60,7 @@ def approve_mechanic_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-approve-mechanic')
-    return render(request, 'vehicle/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
 
 
 @login_required(login_url='adminlogin')
@@ -96,13 +96,13 @@ def admin_add_mechanic_view(request):
             return HttpResponseRedirect('admin-view-mechanic')
         else:
             print('problem in form')
-    return render(request, 'vehicle/admin_add_mechanic.html', context=mydict)
+    return render(request, 'vehicle/../../templates/admin/admin_add_mechanic.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
 def admin_view_mechanic_view(request):
     mechanics = models.Mechanic.objects.all()
-    return render(request, 'vehicle/admin_view_mechanic.html', {'mechanics': mechanics})
+    return render(request, 'vehicle/../../templates/admin/admin_view_mechanic.html', {'mechanics': mechanics})
 
 
 @login_required(login_url='adminlogin')
@@ -130,13 +130,13 @@ def update_mechanic_view(request, pk):
             user.save()
             mechanicForm.save()
             return redirect('admin-view-mechanic')
-    return render(request, 'vehicle/update_mechanic.html', context=mydict)
+    return render(request, 'vehicle/../../templates/admin/update_mechanic.html', context=mydict)
 
 
 @login_required(login_url='adminlogin')
 def admin_view_mechanic_salary_view(request):
     mechanics = models.Mechanic.objects.all()
-    return render(request, 'vehicle/admin_view_mechanic_salary.html', {'mechanics': mechanics})
+    return render(request, 'vehicle/../../templates/admin/admin_view_mechanic_salary.html', {'mechanics': mechanics})
 
 
 @login_required(login_url='adminlogin')
@@ -151,12 +151,12 @@ def update_salary_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/admin-view-mechanic-salary')
-    return render(request, 'vehicle/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
+    return render(request, 'vehicle/../../templates/admin/admin_approve_mechanic_details.html', {'mechanicSalary': mechanicSalary})
 
 
 @login_required(login_url='adminlogin')
 def admin_mechanic_attendance_view(request):
-    return render(request, 'vehicle/admin_mechanic_attendance.html')
+    return render(request, 'vehicle/../../templates/admin/admin_mechanic_attendance.html')
 
 
 @login_required(login_url='mechaniclogin')
@@ -173,7 +173,7 @@ def mechanic_dashboard_view(request):
         'salary': mechanic.salary,
         'mechanic': mechanic,
     }
-    return render(request, 'vehicle/mechanic_dashboard.html', context=dict)
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_dashboard.html', context=dict)
 
 
 @login_required(login_url='mechaniclogin')
@@ -181,7 +181,7 @@ def mechanic_dashboard_view(request):
 def mechanic_work_assigned_view(request):
     mechanic = models.Mechanic.objects.get(user_id=request.user.id)
     works = models.Request.objects.all().filter(mechanic_id=mechanic.id)
-    return render(request, 'vehicle/mechanic_work_assigned.html', {'works': works, 'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_work_assigned.html', {'works': works, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
@@ -198,7 +198,7 @@ def mechanic_update_status_view(request, pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/mechanic-work-assigned')
-    return render(request, 'vehicle/mechanic_update_status.html', {'updateStatus': updateStatus, 'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_update_status.html', {'updateStatus': updateStatus, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
@@ -206,7 +206,7 @@ def mechanic_update_status_view(request, pk):
 def mechanic_attendance_view(request):
     mechanic = models.Mechanic.objects.get(user_id=request.user.id)
     attendaces = models.Attendance.objects.all().filter(mechanic=mechanic)
-    return render(request, 'vehicle/mechanic_view_attendance.html', {'attendaces': attendaces, 'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_view_attendance.html', {'attendaces': attendaces, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
@@ -221,7 +221,7 @@ def mechanic_feedback_view(request):
         else:
             print("form is invalid")
         return render(request, 'vehicle/feedback_sent.html', {'mechanic': mechanic})
-    return render(request, 'vehicle/mechanic_feedback.html', {'feedback': feedback, 'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_feedback.html', {'feedback': feedback, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
@@ -230,14 +230,14 @@ def mechanic_salary_view(request):
     mechanic = models.Mechanic.objects.get(user_id=request.user.id)
     workdone = models.Request.objects.all().filter(mechanic_id=mechanic.id).filter(
         Q(status="Repairing Done") | Q(status="Released"))
-    return render(request, 'vehicle/mechanic_salary.html', {'workdone': workdone, 'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_salary.html', {'workdone': workdone, 'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_profile_view(request):
     mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    return render(request, 'vehicle/mechanic_profile.html', {'mechanic': mechanic})
+    return render(request, 'vehicle/../../templates/mechanic/mechanic_profile.html', {'mechanic': mechanic})
 
 
 @login_required(login_url='mechaniclogin')
@@ -257,4 +257,4 @@ def edit_mechanic_profile_view(request):
             user.save()
             mechanicForm.save()
             return redirect('mechanic-profile')
-    return render(request, 'vehicle/edit_mechanic_profile.html', context=mydict)
+    return render(request, 'vehicle/../../templates/mechanic/edit_mechanic_profile.html', context=mydict)

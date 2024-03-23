@@ -7,7 +7,7 @@ urlpatterns = [
     path('customerclick', views.customerclick_view),
     path('customersignup', views.customer_signup_view, name='customersignup'),
 
-    path('customerlogin', LoginView.as_view(template_name='vehicle/customerlogin.html'), name='customerlogin'),
+    path('customerlogin', LoginView.as_view(template_name='vehicle/../../templates/customer/customerlogin.html'), name='customerlogin'),
     path('customer-dashboard', views.customer_dashboard_view, name='customer-dashboard'),
     path('customer-request', views.customer_request_view, name='customer-request'),
     path('customer-add-request', views.customer_add_request_view, name='customer-add-request'),

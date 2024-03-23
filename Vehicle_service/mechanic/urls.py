@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('mechanicsignup', views.mechanic_signup_view, name='mechanicsignup'),
-    path('mechaniclogin', LoginView.as_view(template_name='vehicle/mechaniclogin.html'), name='mechaniclogin'),
+    path('mechaniclogin', LoginView.as_view(template_name='vehicle/../../templates/mechanic/mechaniclogin.html'), name='mechaniclogin'),
     path('mechanic-dashboard', views.mechanic_dashboard_view, name='mechanic-dashboard'),
     path('mechanic-work-assigned', views.mechanic_work_assigned_view, name='mechanic-work-assigned'),
     path('mechanic-update-status/<int:pk>', views.mechanic_update_status_view, name='mechanic-update-status'),

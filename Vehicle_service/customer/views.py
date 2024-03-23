@@ -12,7 +12,7 @@ from django.db.models import Q
 def customerclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request, 'vehicle/customerclick.html')
+    return render(request, 'vehicle/../../templates/customer/customerclick.html')
 
 def customer_signup_view(request):
     userForm = forms.CustomerUserForm()
@@ -31,7 +31,7 @@ def customer_signup_view(request):
             my_customer_group = Group.objects.get_or_create(name='CUSTOMER')
             my_customer_group[0].user_set.add(user)
         return HttpResponseRedirect('customerlogin')
-    return render(request, 'vehicle/customersignup.html', context=mydict)
+    return render(request, 'vehicle/../../templates/customer/customersignup.html', context=mydict)
 
 
 def is_customer(user):
@@ -57,14 +57,14 @@ def customer_dashboard_view(request):
         'bill': bill['cost__sum'],
         'customer': customer,
     }
-    return render(request, 'vehicle/customer_dashboard.html', context=dict)
+    return render(request, 'vehicle/../../templates/customer/customer_dashboard.html', context=dict)
 
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def customer_request_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
-    return render(request, 'vehicle/customer_request.html', {'customer': customer})
+    return render(request, 'vehicle/../../templates/customer/customer_request.html', {'customer': customer})
 
 
 @login_required(login_url='customerlogin')
@@ -72,7 +72,7 @@ def customer_request_view(request):
 def customer_view_request_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
     enquiries = models.Request.objects.all().filter(customer_id=customer.id, status="Pending")
-    return render(request, 'vehicle/customer_view_request.html', {'customer': customer, 'enquiries': enquiries})
+    return render(request, 'vehicle/../../templates/customer/customer_view_request.html', {'customer': customer, 'enquiries': enquiries})
 
 
 @login_required(login_url='customerlogin')
@@ -89,7 +89,7 @@ def customer_delete_request_view(request, pk):
 def customer_view_approved_request_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
     enquiries = models.Request.objects.all().filter(customer_id=customer.id).exclude(status='Pending')
-    return render(request, 'vehicle/customer_view_approved_request.html',
+    return render(request, 'vehicle/../../templates/customer/customer_view_approved_request.html',
                   {'customer': customer, 'enquiries': enquiries})
 
 
@@ -98,7 +98,7 @@ def customer_view_approved_request_view(request):
 def customer_view_approved_request_invoice_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
     enquiries = models.Request.objects.all().filter(customer_id=customer.id).exclude(status='Pending')
-    return render(request, 'vehicle/customer_view_approved_request_invoice.html',
+    return render(request, 'vehicle/../../templates/customer/customer_view_approved_request_invoice.html',
                   {'customer': customer, 'enquiries': enquiries})
 
 
@@ -117,14 +117,14 @@ def customer_add_request_view(request):
         else:
             print("form is invalid")
         return HttpResponseRedirect('customer-dashboard')
-    return render(request, 'vehicle/customer_add_request.html', {'enquiry': enquiry, 'customer': customer})
+    return render(request, 'vehicle/../../templates/customer/customer_add_request.html', {'enquiry': enquiry, 'customer': customer})
 
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def customer_profile_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
-    return render(request, 'vehicle/customer_profile.html', {'customer': customer})
+    return render(request, 'vehicle/../../templates/customer/customer_profile.html', {'customer': customer})
 
 
 @login_required(login_url='customerlogin')
@@ -144,7 +144,7 @@ def edit_customer_profile_view(request):
             user.save()
             customerForm.save()
             return HttpResponseRedirect('customer-profile')
-    return render(request, 'vehicle/edit_customer_profile.html', context=mydict)
+    return render(request, 'vehicle/../../templates/customer/edit_customer_profile.html', context=mydict)
 
 
 @login_required(login_url='customerlogin')
@@ -152,7 +152,7 @@ def edit_customer_profile_view(request):
 def customer_invoice_view(request):
     customer = models.Customer.objects.get(user_id=request.user.id)
     enquiries = models.Request.objects.all().filter(customer_id=customer.id).exclude(status='Pending')
-    return render(request, 'vehicle/customer_invoice.html', {'customer': customer, 'enquiries': enquiries})
+    return render(request, 'vehicle/../../templates/customer/customer_invoice.html', {'customer': customer, 'enquiries': enquiries})
 
 
 @login_required(login_url='customerlogin')
@@ -167,4 +167,4 @@ def customer_feedback_view(request):
         else:
             print("form is invalid")
         return render(request, 'vehicle/feedback_sent_by_customer.html', {'customer': customer})
-    return render(request, 'vehicle/customer_feedback.html', {'feedback': feedback, 'customer': customer})
+    return render(request, 'vehicle/../../templates/customer/customer_feedback.html', {'feedback': feedback, 'customer': customer})
