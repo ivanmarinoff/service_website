@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" dir="ltr">
-
+{% include "vehicle/navbar.html" %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <style media="screen">
         .jumbotron {
-            margin-top: 0px;
-            margin-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
         .jumbotron h1 {
@@ -21,10 +21,8 @@
 </head>
 
 <body>
-{% include "vehicle/navbar.html" %}
-
 <br><br>
-<div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
+<div class="jumbotron" style="margin-bottom: 0;margin-top: 0;">
     <h1 class="display-4">Hello, Mechanics</h1>
     <p class="lead">Welcome to Vehicle Service Management</p>
     <hr class="my-4">
@@ -33,9 +31,22 @@
         <a class="btn btn-primary btn-lg" href="mechanicsignup" role="button">Apply For Job</a>
         <a class="btn btn-primary btn-lg" href="mechaniclogin" role="button">Login</a>
     </p>
-
-<br><br><br><br>
-</div>
+    <br><br><br><br>
+    {% include "vehicle/footer.html" %}</div>
+<br><br><br>
+<marquee behavior="scroll" direction="left">
+    <img src="{% static "images/ferrari.png" %}" width="120" height="80" alt="ferrari"/>
+    <img src="{% static "images/porsche.png" %}" width="120" height="80" alt="porsche"/>
+    <img src="{% static "images/lambo.png" %}" width="120" height="80" alt="lambo"/>
+    <img src="{% static "images/bentley.png" %}" width="120" height="80" alt="bentley"/>
+    <img src="{% static "images/rolls.png" %}" width="120" height="80" alt="rolls"/>
+    <img src="{% static "images/audi.png" %}" width="120" height="80" alt="audi"/>
+    <img src="{% static "images/honda.png" %}" width="120" height="80" alt="honda"/>
+    <img src="{% static "images/mercedes.png" %}" width="120" height="80" alt="mercedes"/>
+    <img src="{% static "images/nissan.png" %}" width="120" height="80" alt="nissan"/>
+    <img src="{% static "images/ford.png" %}" width="120" height="80" alt="ford"/>
+    <img src="{% static "images/fiat.png" %}" width="120" height="80" alt="fiat"/>
+    <img src="{% static "images/suzuki.png" %}" width="120" height="80" alt="suzuki"/>
+</marquee>
 </body>
-{% include "vehicle/footer.html" %}
 </html>
