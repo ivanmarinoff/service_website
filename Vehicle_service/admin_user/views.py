@@ -349,26 +349,6 @@ def contactus_view(request):
     return render(request, 'vehicle/contactus.html', {'form': sub})
 
 
-# def logout(request):
-#     if request.method == 'POST':
-#         auth.logout(request)
-#         request.session.flush()
-#         return redirect('home')
-#
-#     return render(request, 'vehicle/index.html')
-
-# def logout(request):
-#     if request.method == 'POST':
-#         # This is to handle the POST request, if needed.
-#         user_logged_out.send(sender=request.user.__class__, request=request, user=request.user)
-#         clear_session(request)
-#
-#     return render(request, 'vehicle/index.html')  # Render the index page
-#
-#
-# # Use LogoutView for handling logout
-# logout_view = LogoutView.as_view(next_page='home')
-
 class LogoutUserView(auth_views.LogoutView):
     next_page = reverse_lazy('home')
 
@@ -377,7 +357,3 @@ class LogoutUserView(auth_views.LogoutView):
             user_logged_out.send(sender=request.user.__class__, request=request, user=request.user)
         return super().post(request, *args, **kwargs)
 
-
-# @receiver(user_logged_out)
-# def clear_session(sender, request, **kwargs):
-#     request.session.clear()
