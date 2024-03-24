@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{% static "images/favicon.ico"%}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <style media="screen">
     .jumbotron {
@@ -31,9 +31,8 @@
   </div>
 
   {% include "vehicle/../customer/customer_mechanic_cards.html" %}
-<br><br><br><br>
-  </div>
+<br><br><br>
 
+{% include "vehicle/footer.html" %}</div>
 </body>
-{% include "vehicle/footer.html" %}
 </html>
