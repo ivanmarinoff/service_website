@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from Vehicle_service.customer import forms, models
 from Vehicle_service.admin_user import forms, models
 from Vehicle_service.mechanic import forms, models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
@@ -244,7 +244,7 @@ def mechanic_profile_view(request):
 @user_passes_test(is_mechanic)
 def edit_mechanic_profile_view(request):
     mechanic = models.Mechanic.objects.get(user_id=request.user.id)
-    user = models.User.objects.get(id=mechanic.user_id)
+    user = User.objects.get(id=mechanic.user_id)
     userForm = forms.MechanicUserForm(instance=user)
     mechanicForm = forms.MechanicForm(request.FILES, instance=mechanic)
     mydict = {'userForm': userForm, 'mechanicForm': mechanicForm, 'mechanic': mechanic}

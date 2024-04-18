@@ -134,6 +134,9 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+MEDIA_URL = "/profile_pic/"
+MEDIA_ROOT = BASE_DIR + "static/profile_pic"
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 LOGIN_REDIRECT_URL = '/afterlogin'

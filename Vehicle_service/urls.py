@@ -3,6 +3,8 @@ vehicle
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from .admin_user import views
 from .admin_user.views import LogoutUserView
 
@@ -19,4 +21,4 @@ urlpatterns = [
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
     path('schema/', include('schema_viewer.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
