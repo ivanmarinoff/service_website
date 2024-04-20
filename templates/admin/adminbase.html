@@ -51,7 +51,7 @@
 
 
 						<li  class="dropdown-menu-item">
-                            <form method="post" action="{% url 'logout' %}" class="dropdown-menu-link">
+                            <form method="post" action="{% url 'logout' %}" class="dropdown-menu-link" enctype="multipart/form-data">
 {#							<a href="{% url 'logout' %}" class="dropdown-menu-link" type="submit">#}
                                  {% csrf_token %}
                                 <button autofocus type="submit" class="dropdown-menu-link" style="border:none; background-color: transparent">

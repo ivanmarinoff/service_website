@@ -48,8 +48,8 @@
 
         <li class="nav-item avt-wrapper">
             <div class="avt dropdown">
-                <img src="{% static  customer.profile_pic.url %} " alt="User image" class="dropdown-toggle"
-                     data-toggle="user-menu">
+                    <img src="{% static customer.profile_pic %}" alt="User image" class="dropdown-toggle"
+                         data-toggle="user-menu">
                 <ul id="user-menu" class="dropdown-menu">
 
                     <li class="dropdown-menu-item">
@@ -60,9 +60,10 @@
                             <span>Profile</span>
                         </a>
                     <li class="dropdown-menu-item">
-                        <form method="post" action="{% url 'logout' %}">
+                        <form method="post" action="{% url 'logout' %}" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <button autofocus type="submit" class="dropdown-menu-link" style="border:none; background-color: transparent">
+                            <button autofocus type="submit" class="dropdown-menu-link"
+                                    style="border:none; background-color: transparent">
                                 <div>
                                     <i class="fas fa-sign-out-alt"></i>
                                 </div>

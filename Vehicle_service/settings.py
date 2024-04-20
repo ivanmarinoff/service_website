@@ -1,13 +1,16 @@
 import os
+from pathlib import Path
+from django.template.context_processors import media
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+# TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -61,7 +64,8 @@ ROOT_URLCONF = 'Vehicle_service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        # 'DIRS': [TEMPLATE_DIR, ],
+        "DIRS": [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,16 +132,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    BASE_DIR / "static",
+    "media/profile_pic",
 ]
+STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
 
-MEDIA_URL = "/profile_pic/"
-MEDIA_ROOT = BASE_DIR + "static/profile_pic"
+# MEDIA_URL = "/profile_pic/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static/profile_pic")
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/afterlogin'
 LOGOUT_REDIRECT_URL = '/logout'
