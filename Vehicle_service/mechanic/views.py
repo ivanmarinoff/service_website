@@ -117,7 +117,7 @@ def delete_mechanic_view(request, pk):
 @login_required(login_url='adminlogin')
 def update_mechanic_view(request, pk):
     mechanic = models.Mechanic.objects.get(id=pk)
-    user = models.User.objects.get(id=mechanic.user_id)
+    user = User.objects.get(id=mechanic.user_id)
     userForm = forms.MechanicUserForm(instance=user)
     mechanicForm = forms.MechanicForm(request.FILES, instance=mechanic)
     mydict = {'userForm': userForm, 'mechanicForm': mechanicForm}

@@ -136,15 +136,11 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    "media/profile_pic",
 ]
 STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
 
-# MEDIA_URL = "/profile_pic/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "static/profile_pic")
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/profile_pic/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/")
 
 LOGIN_REDIRECT_URL = '/afterlogin'
 LOGOUT_REDIRECT_URL = '/logout'
