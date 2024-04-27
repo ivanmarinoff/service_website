@@ -1,3 +1,6 @@
+[![Schedule for GET requests](https://github.com/ivanmarinoff/service_website/actions/workflows/webappalive.yml/badge.svg?branch=main)](https://github.com/ivanmarinoff/service_website/actions/workflows/webappalive.yml) 
+
+
 - [Freelance service App](https://freelance-services.onrender.com)
 
 
