@@ -1,5 +1,6 @@
 :root {
-  --clr-neon: hsl(100 63% 49%);
+  --clr-neon: hsl(220, 57%, 82%);
+  /*--clr-neon: hsl(100 63% 49%);*/
   --clr-bg: hsl(323 21% 16%);
 }
 
